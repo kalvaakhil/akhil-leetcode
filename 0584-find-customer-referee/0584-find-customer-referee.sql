@@ -1,0 +1,1 @@
+select e.name from Customer e where e.referee_id!=2 or e.referee_id is null;
