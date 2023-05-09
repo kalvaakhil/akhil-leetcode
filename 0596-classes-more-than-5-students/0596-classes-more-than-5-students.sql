@@ -1,0 +1,1 @@
+select class from Courses GROUP BY class HAVING  Count(class)>=5;
