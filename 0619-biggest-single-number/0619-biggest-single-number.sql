@@ -1,0 +1,2 @@
+select max(num) as num from MyNumbers WHERE num not in(select num from MyNumbers GROUP BY num HAVING COUNT(num)>1);
+# select Max(num) as num from MyNumbers where num not in (select num from MyNumbers group by num having count(num)>1);
