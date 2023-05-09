@@ -1,16 +1,27 @@
 class Solution {
     public int countPrimes(int n) {
-        boolean[] notPrime = new boolean[n];
+        
         int count = 0;
-        for (int i = 2; i < n; i++) {
-            if (notPrime[i] == false) {
-                count++;
-                for (int j = 2; i*j < n; j++) {
-                    notPrime[i*j] = true;
+        
+        boolean[] isprime = new boolean[n];
+        
+        Arrays.fill(isprime, true); //mark all numbers as prime
+        
+        for(int i=2; i*i<=isprime.length; i++){ //1 is not a prime number
+            if(isprime[i]==true){
+                //making multiples not prime
+                for(int j=i+i; j<isprime.length; j=j+i){
+                    isprime[j]=false; //not prime
+                    }
                 }
             }
-        }
         
+        //count prime numbers
+        for(int i=2; i<n; i++){
+            if(isprime[i]==true){
+                count++;
+                }
+            }
         return count;
     }
 }
