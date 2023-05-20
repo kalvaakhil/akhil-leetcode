@@ -33,21 +33,34 @@ class GFG{
 //User function Template for Java
 
 class Solution{
+    static int unboundedKnapsack(int n, int W, int[] val,int[] wt) {
+    
+    int[][] dp=new int[n][W+1];
+    
+    //Base Condition
+    
+    for(int i=wt[0]; i<=W; i++){
+        dp[0][i] = ((int) i/wt[0]) * val[0];
+    }
+    
+    for(int ind =1; ind<n; ind++){
+        for(int cap=0; cap<=W; cap++){
+            
+            int notTaken = 0 + dp[ind-1][cap];
+            
+            int taken = Integer.MIN_VALUE;
+            if(wt[ind] <= cap)
+                taken = val[ind] + dp[ind][cap - wt[ind]];
+                
+            dp[ind][cap] = Math.max(notTaken, taken);
+        }
+    }
+    
+    return dp[n-1][W];
+}
+
     static int knapSack(int n, int W, int val[], int wt[])
     {
-        // code here
-        int p[] = new int[W+1];
-        for(int j=0; j<=W; j++) p[j]= val[0]*(j/wt[0]); // Infinite supply base scenario ~
-        
-        for(int i=1; i<n; i++){
-            for(int j=0; j<=W; j++){
-                int noTake = 0 + p[j], take= Integer.MIN_VALUE;
-                
-                if(wt[i] <= j) take = val[i] + p[j - wt[i]];
-                p[j] = Math.max(take, noTake);
-            }
-        }
-        
-        return p[W];
+        return unboundedKnapsack(n,W,val,wt);
     }
 }
