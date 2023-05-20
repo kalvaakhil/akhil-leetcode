@@ -33,20 +33,21 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    static int knapSack(int N, int W, int val[], int wt[]){
-        int[]arr = new int[W+1];
-        for(int i=1;i<N+1;i++){
-            for(int j=1;j<W+1;j++){
-                // take
-                int take = Integer.MIN_VALUE;
-                if(j>=wt[i-1]){
-                    take = val[i-1]+arr[j-wt[i-1]];
-                }
-                // not take 
-                int ntake = arr[j];
-                arr[j] = Math.max(take,ntake);
+    static int knapSack(int n, int W, int val[], int wt[])
+    {
+        // code here
+        int p[] = new int[W+1];
+        for(int j=0; j<=W; j++) p[j]= val[0]*(j/wt[0]); // Infinite supply base scenario ~
+        
+        for(int i=1; i<n; i++){
+            for(int j=0; j<=W; j++){
+                int noTake = 0 + p[j], take= Integer.MIN_VALUE;
+                
+                if(wt[i] <= j) take = val[i] + p[j - wt[i]];
+                p[j] = Math.max(take, noTake);
             }
         }
-        return arr[W];
+        
+        return p[W];
     }
 }
