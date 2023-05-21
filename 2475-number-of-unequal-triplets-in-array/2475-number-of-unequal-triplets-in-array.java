@@ -1,18 +1,11 @@
 class Solution {
-    public int unequalTriplets(int[] nums) {
-        Map<Integer, Integer> c = new HashMap<>();
-        for (int num : nums) {
-            c.put(num, c.getOrDefault(num, 0) + 1);
+    public int unequalTriplets(int[] A) {
+        int trips = 0, pairs = 0, count[] = new int[1001];
+        for (int i = 0; i < A.length; ++i) {
+            trips += pairs - count[A[i]] * (i - count[A[i]]);
+            pairs += i - count[A[i]];
+            count[A[i]] += 1;
         }
-        
-        int ans = 0;
-        int left = 0;
-        int right = nums.length;
-        for (int val : c.values()) {
-            right -= val;
-            ans += left * val * right;
-            left += val;
-        }
-        return ans;
+        return trips;
     }
 }
