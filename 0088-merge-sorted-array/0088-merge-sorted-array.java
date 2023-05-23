@@ -21,11 +21,6 @@ class Solution {
             temp[ind++]=arr2[j++];
         }
         for (i = 0; i < n + m; i++) {
-            if (i < n) {
-                arr1[i] = temp[i];
-            } else {
-                arr1[i] = temp[i];
-            }
-        }
+            arr1[i]=temp[i];}
     }
 }
