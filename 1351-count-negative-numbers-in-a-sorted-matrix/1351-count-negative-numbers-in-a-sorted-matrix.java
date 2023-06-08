@@ -2,12 +2,13 @@ class Solution {
     public int countNegatives(int[][] grid) {
         int c=0;
         for(int n[]:grid){
-            for(int j:n){
-                if(j<0){
-                    c+=1;
-                }
+            for(int j=n.length-1;j>=0;j--){
+                if(n[j]<0)
+                    c++;
+                else
+                    break;
             }
         }
-        return c;
+            return c;
     }
 }
