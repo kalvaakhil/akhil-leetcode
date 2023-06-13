@@ -6,6 +6,6 @@ class Solution {
             rmax=Math.max(rmax,h[r]);
             water+=(lmax<rmax)? lmax-h[l++]:rmax-h[r--];
         }
-        return water--;
+        return water;
     }
 }
