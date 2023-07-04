@@ -1,15 +1,15 @@
 class Solution {
-    public int singleNumber(int[] nums) {
-        HashMap<Integer,Integer> hmap=new HashMap<>();
-        int ans=-1;
-        for(int i:nums){
-            hmap.put(i,hmap.getOrDefault(i,0)+1);
-        }
-        for(int i:hmap.keySet()){
-            if(hmap.get(i)==1){
-                return i;
-            }
-        }
-        return ans;
+  public int singleNumber(int[] nums) {
+    int ans = 0;
+
+    for (int i = 0; i < 32; ++i) {
+      int sum = 0;
+      for (final int num : nums)
+        sum += num >> i & 1;
+      sum %= 3;
+      ans |= sum << i;
     }
+
+    return ans;
+  }
 }
