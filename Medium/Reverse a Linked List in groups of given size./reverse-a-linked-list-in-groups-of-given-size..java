@@ -1,5 +1,6 @@
 //{ Driver Code Starts
 import java.util.*;
+import java.io.*;
 import java.lang.*;
 
 class Node
@@ -17,37 +18,41 @@ class ReverseInSize
 {
     static Node head;
     
-    public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
+    public static void main (String[] args)throws IOException {
+        BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out=new PrintWriter(System.out);
+        
+        int t = Integer.parseInt(in.readLine().trim());
         
         while(t-- > 0)
         {
-            int n = sc.nextInt();
-            int a1 = sc.nextInt();
+            int n = Integer.parseInt(in.readLine().trim());
+            String s[]=in.readLine().trim().split(" ");
+            int a1 = Integer.parseInt(s[0]);
             Node head = new Node(a1);
             Node tail = head;
             for(int i = 1; i < n; i++)
             {
-                int a = sc.nextInt();
+                int a = Integer.parseInt(s[i]);
                 // addToTheLast(new Node(a));
                 tail.next = new Node(a);
                 tail =tail.next;
             }
             
-            int k = sc.nextInt();
+            int k = Integer.parseInt(in.readLine().trim());
             Solution ob = new Solution();
             Node res = ob.reverse(head, k);
-            printList(res);
-            System.out.println();
+            printList(res,out);
+            out.println();
         }
+        out.close();
     }
     
-    public static void printList(Node node)
+    public static void printList(Node node,PrintWriter out)
     {
         while(node != null)
         {
-            System.out.print(node.data + " ");
+            out.print(node.data + " ");
             node = node.next;
         }
     }
@@ -75,24 +80,41 @@ class Node
 
 class Solution
 {
-    public static Node reverse(Node head, int k)
+    public static Node reverse(Node node, int k)
     {
-        if(head==null)return null;
-        Node temp=null;
-        Node curr=head;
-        Node prev=null;
-        int j=0;
-        while(curr!=null && j<k){
-            temp=curr.next;
-            curr.next=prev;
-            prev=curr;
-            curr=temp;
-            j++;
+        //Your code here
+        
+        Node curr=node;
+        Node ghead=null;
+        Node tail=null;
+        
+        while(curr!=null){
+            
+            Node currr=curr;
+            Node prev=null;
+            Node nex=node;
+            int count=0;
+            
+            while(nex!=null && count<k){
+                nex=currr.next;
+                currr.next=prev;
+                prev=currr;
+                currr=nex;
+                count++;
+            }
+
+            if(ghead==null) ghead=prev;
+            else tail.next=prev;
+            
+            tail=curr;
+            curr=currr;
+
         }
-        if(temp!=null){
-            head.next=reverse(temp,k);
-        }
-        return prev;
+
+        return ghead;
+        
+        
     }
 }
+
 
