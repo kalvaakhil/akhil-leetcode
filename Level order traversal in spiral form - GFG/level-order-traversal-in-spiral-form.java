@@ -134,42 +134,50 @@ class Node
 }
 */
 
-class Spiral
-{
-    //Function to return a list containing the level order 
-    //traversal in spiral form.
-    ArrayList<Integer> findSpiral(Node root) 
-    {
-        
-    //Add your code here.
-    ArrayList<Integer> a1 = new ArrayList<Integer>();
-    if(root == null)
-        return a1;
-    Stack<Node> s1 = new Stack<Node>();
-    Stack<Node> s2 = new Stack<Node>();
-    s2.push(root);
-    while(!s1.isEmpty() || !s2.isEmpty())
-    {
-        while(!s1.isEmpty())
-        {
-            Node temp = s1.pop();
-            a1.add(temp.data);
-            if(temp.left!=null)
-                s2.push(temp.left);
+
+class Spiral {
+    // Function to return a list containing the level order traversal in spiral form.
+    ArrayList<Integer> findSpiral(Node root) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if (root == null)
+            return result;
+
+        Queue<Node> queue = new LinkedList<>();
+        Stack<Integer> stack = new Stack<>();
+        boolean leftToRight = true;
+
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
             
-            if(temp.right!=null)
-                s2.push(temp.right);
+            // Process all nodes at the current level
+            for (int i = 0; i < levelSize; i++) {
+                Node node = queue.poll();
+                
+                // If leftToRight is true, push node's value to the stack
+                // Otherwise, add the node's value to the result list
+                if (leftToRight)
+                    stack.push(node.data);
+                else
+                    result.add(node.data);
+
+                // Add the children of the current node to the queue
+                if (node.left != null)
+                    queue.add(node.left);
+                if (node.right != null)
+                    queue.add(node.right);
+            }
+            
+            // If leftToRight is true, pop values from the stack and add them to the result list
+            while (!stack.isEmpty()) {
+                result.add(stack.pop());
+            }
+            
+            // Toggle leftToRight for the next level
+            leftToRight = !leftToRight;
         }
-        while(!s2.isEmpty())
-        {
-            Node temp = s2.pop();
-            a1.add(temp.data);
-            if(temp.right!=null)
-                s1.push(temp.right);
-            if(temp.left!=null)
-                s1.push(temp.left);
-        }
+
+        return result;
     }
-    return a1;
-}
 }
