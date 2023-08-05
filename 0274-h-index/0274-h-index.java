@@ -16,6 +16,6 @@ public int hIndex(int[] citations) {
             return i;
         }
     }
-    return 1;
+    return 0;
 }
 }
