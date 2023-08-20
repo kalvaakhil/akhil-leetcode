@@ -36,18 +36,17 @@ public class Main {
 
 
 class Solution {
-    int count(int[] arr, int n, int x) {
+    int count(int[] arr, int n, int x)
+    {
         // code here
-        Arrays.sort(arr);
-        int c=0;
-        for(int i:arr){
-            if(i>x){
-                break;
-            }
-            if(i==x){
-                c++;
+        int c=0; //variable to keep track of count
+        for(int i=0;i<arr.length;i++)
+        {
+            if(arr[i]==x)
+            {
+                c++; //if the x element is found in the array then increase the count by 1
             }
         }
-        return c;
+        return c; //return the count
     }
 }
