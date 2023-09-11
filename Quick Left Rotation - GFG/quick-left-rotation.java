@@ -10,34 +10,26 @@ import java.util.*;
 // } Driver Code Ends
 class Solution
 {
- void leftRotate(long arr[], int k, int n) {
+void leftRotate(long arr[], int k, int n) {
     if (k > n) {
-        k = k % n; // Corrected this line
+        k = k % n;
     }
-    
-    long ans[] = new long[n];
-    int over = 0;
-    
-    for (int i = 0; i < n; i++) {
-        ans[i] = arr[k];
-        k++;
-        
-        if (k == n) {
-            ans[i] = arr[n - 1];
-            over = i + 1; // Corrected this line
-            break;
-        }
-    }
-    
-    int left = n - over; // Corrected this line
-    
-    for (int i = 0; i < left; i++) {
-        ans[over] = arr[i];
-        over++;
-    }
-    
-    for (int i = 0; i < n; i++) {
-        arr[i] = ans[i];
+
+    reverse(arr, 0, k - 1);       // Reverse the first part of the array (0 to k-1)
+    reverse(arr, k, n - 1);       // Reverse the second part of the array (k to n-1)
+    reverse(arr, 0, n - 1);       // Reverse the entire array
+
+    // The array is now rotated to the left by k positions in-place
+}
+
+// Helper function to reverse a portion of the array
+void reverse(long arr[], int start, int end) {
+    while (start < end) {
+        long temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
     }
 }
 
