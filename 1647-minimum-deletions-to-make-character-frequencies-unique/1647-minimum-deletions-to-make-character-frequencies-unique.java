@@ -12,7 +12,7 @@ class Solution {
             int f=hmap.get(i);
             while(f>0 && hset.contains(f)){
                 f-=1;
-                del+=1;
+                del++;
             }
             hset.add(f);
         }
