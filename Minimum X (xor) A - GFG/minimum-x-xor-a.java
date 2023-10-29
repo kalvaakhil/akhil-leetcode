@@ -9,7 +9,6 @@ class GFG {
     public static void main(String[] args) throws IOException {
         BufferedReader br =
             new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out = new PrintWriter(System.out);
         int t =
             Integer.parseInt(br.readLine().trim()); // Inputting the testcases
         while (t-- > 0) {
@@ -18,9 +17,8 @@ class GFG {
             int b = Integer.parseInt(br.readLine().trim());
 
             Solution ob = new Solution();
-            out.println(ob.minVal(a, b));
+            System.out.println(ob.minVal(a, b));
         }
-        out.flush();
     }
 }
 // } Driver Code Ends
@@ -30,23 +28,28 @@ class GFG {
 
 class Solution {
     public static int minVal(int a, int b) {
-        int b_bit_count = countSetBit(b);
-        int val = 0;
-        for(int i=0;i<=a;i++){
-            val = a ^ i;
-            if(countSetBit(val) == b_bit_count){
-                return val;
-            }
-        }
-        return val;
-    }
-
-    public static int countSetBit(int b){
-        int count = 0;
-        while(b>0){
-            b = b & (b-1);
-            count++;
-        }
-        return count;
+        // code here
+           int bitsA = Integer.bitCount(a);
+       int bitsB = Integer.bitCount(b);
+       
+       if(bitsA==bitsB){
+           return a;
+       }
+       
+       if(bitsA>bitsB){
+     
+           while(bitsA>bitsB){
+               a = a & (a-1);
+               bitsA--;
+           }
+       } else {
+         
+          
+           while(bitsA<bitsB){
+               a = a | (a+1);
+               bitsA++;
+           }
+       }
+       return a;
     }
 }
